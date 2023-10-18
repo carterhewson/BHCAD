@@ -3,22 +3,26 @@
         <title>Police CAD - Home</title>
         <link rel="stylesheet" href="style.css">
         <script src="assets/jquery-3.7.0.js"></script>
-        <script src="assets/police.js"></script>
+        <?php require "include/connect.php";?>
+        <?php require "php/getDetails.php";?>
     </head>
     
     
+    
     <div id="banner">
-        <p>This is the header</p>
+        <a class="whiteLink" href="#">All incidents</a>
+        <line></line>
     </div>
     <div id="UI">
         <div id="incidentNotes" class="grid-item">
             <input id="incidentInput" placeholder="Type here to add incident notes..." type="text">
-            <textarea readonly disabled placeholder=""></textarea>
+            <textarea id="incidentText" readonly placeholder=""><?php echo $incidentNotes?></textarea>
         </div>
         
         <div id="incidentType" class="grid-item">
             <div id="table">
-                <select>
+                <!--<?php $types = ['', ''] ?>-->
+                <select id="incidentType" onchange="changeType()">
                     <option>Select an incident type:</option>
                     <option>1T -Traffic Stop</option>
                 </select>
@@ -29,8 +33,8 @@
         
         <div id="address" class="grid-item">
             <div id="table">
-                <input id="postalInput" type="text" value="111" onchange="changeAddress()" placeholder="Postal Number...">
-                <input id="streetInput" type="text" value="Joshua Road" onchange="changeAddress()" placeholder="Street Name...">
+                <input id="postalInput" type="text" value="<?php echo $postal;?>" onchange="changeAddress()" placeholder="Postal Number...">
+                <input id="streetInput" type="text" value="<?php echo $streetAddress;?>" onchange="changeAddress()" placeholder="Street Name...">
                 <br><br>
                 <button id="addressButton" disabled onclick="clickedAddressButton()" class="greenButton">Save Address Change</button>
             </div>
@@ -58,9 +62,10 @@
         
         <div id="interCad" class="grid-item"><p class="header">Intercad</p>
             <span>
-                <button class="greyButton">POL2FIR</button> 
-                <button class="greyButton">POL2AMB</button>
+                <button disabled class="greyButton">POL2FIR</button> 
+                <button disabled class="greyButton">POL2AMB</button>
             </span>
+            Unavailable while in beta
         </div>
         
         <div id="callsignInfo" class="grid-item"><p class="header">Callsign wiki</p>
@@ -77,7 +82,7 @@
         </div>
         
         <div id="lookup" class="grid-item"><p class="header">Lookup details</p>
-            <span>
+            <!--<span> Use when can access civ details
                 <form action="#">
                     <button type="submit" class="greyButton" id="rego">Rego Lookup</button>
                 </form>
@@ -92,7 +97,7 @@
                 <form action="#">
                     <button typpe="submit" class="greyButton">Staff Lookup</button>
                 </form>
-            </span>
+            </span>--> Unavailable while in Beta
         </div>
         
         <div id="close" class="grid-item"><p class="header">Incident complete</p>
@@ -104,3 +109,5 @@
         
     </div>
 </html>
+
+<script src="assets/police.js"></script>
